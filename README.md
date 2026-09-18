@@ -1,219 +1,213 @@
-# 🛰️ ReconX — Footprinting & Network Discovery Lab
+# 🔐 Cybersecurity Lab — Footprinting & Network Scanning
 
-### Week 02 · Target Reconnaissance & Subnet Discovery
+### Week 02 — Target Reconnaissance & Subnet Discovery
 
-> **Map the Surface. Discover the Network. Understand the Target.**
-
-A hands-on cybersecurity reconnaissance laboratory focused on **OSINT, DNS intelligence, web technology fingerprinting, WAF detection, HTTP analysis, and subnet host discovery** using Kali Linux.
+**Networkwalks Cybersecurity Internship · Batch B083F**
 
 <p align="center">
 
 ![Kali Linux](https://img.shields.io/badge/Kali%20Linux-Rolling-557C94?style=for-the-badge&logo=kalilinux&logoColor=white)
-![Nmap](https://img.shields.io/badge/Nmap-Network%20Discovery-1F6FEB?style=for-the-badge)
-![OSINT](https://img.shields.io/badge/OSINT-Reconnaissance-8A2BE2?style=for-the-badge)
-![Networkwalks](https://img.shields.io/badge/Networkwalks-Internship-orange?style=for-the-badge)
+![VirtualBox](https://img.shields.io/badge/VirtualBox-7.x-183A61?style=for-the-badge&logo=virtualbox&logoColor=white)
+![Nmap](https://img.shields.io/badge/Nmap-Network%20Scanning-1F6FEB?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Completed-2EA44F?style=for-the-badge)
 
 </p>
 
 ---
 
-## 🧭 Mission Brief
+## 📌 Project Overview
 
-Week 02 focuses on understanding how security professionals build an initial picture of a target before deeper security testing.
+This project documents the completion of **Week 02 laboratory exercises** for the Networkwalks Cybersecurity Internship.
 
-The laboratory was divided into two reconnaissance tracks:
+The laboratory covers two primary activities:
+
+- **W2-PM1 — Target Footprinting**
+- **W2-PM5 — Network Scanning**
+
+The first module focuses on reconnaissance and information gathering against the authorized target domain `networkwalks.com`.
+
+The second module focuses on active host discovery across the authorized `10.0.0.0/24` laboratory subnet using Nmap.
+
+---
+
+## 🎯 Objectives
+
+- Perform domain footprinting and OSINT.
+- Collect WHOIS and DNS information.
+- Identify web application technologies.
+- Inspect HTTP response headers.
+- Detect the presence of a Web Application Firewall.
+- Enumerate DNS records.
+- Discover active hosts within the authorized subnet.
+- Capture and document command outputs.
+- Troubleshoot Kali Linux network connectivity issues.
+
+---
+
+## 🏗️ Lab Architecture
 
 ```text
-                    ┌─────────────────────────┐
-                    │       KALI LINUX        │
-                    │     RECON WORKSTATION   │
-                    └────────────┬────────────┘
-                                 │
-                ┌────────────────┴────────────────┐
-                │                                 │
-                ▼                                 ▼
-       ┌──────────────────┐             ┌──────────────────┐
-       │  EXTERNAL RECON  │             │  NETWORK RECON   │
-       │                  │             │                  │
-       │ networkwalks.com │             │  10.0.0.0/24     │
-       └────────┬─────────┘             └────────┬─────────┘
-                │                                │
-                ▼                                ▼
-       Domain Intelligence                Host Discovery
-       DNS Enumeration                    Nmap Ping Sweep
-       Web Fingerprinting
-       WAF Detection
-       HTTP Analysis
-                │                                │
-                └────────────────┬───────────────┘
-                                 ▼
-                       ┌────────────────────┐
-                       │  RECON INTELLIGENCE│
-                       │  & DOCUMENTATION   │
-                       └────────────────────┘
-🎯 Objectives
-Area	Objective
-🔎 Domain Recon	Collect publicly available domain information
-🌐 DNS Analysis	Identify DNS and infrastructure records
-🧬 Technology Fingerprinting	Identify web technologies and server components
-🛡️ WAF Detection	Determine whether a web application firewall is present
-📡 HTTP Analysis	Inspect HTTP response headers and status
-🗺️ Network Discovery	Identify active hosts within the authorized subnet
-📝 Evidence Collection	Preserve command outputs and screenshots
-🧰 Recon Toolkit
-┌──────────────┬────────────────────────────────────┐
-│ WHOIS        │ Domain / registrar intelligence    │
-│ WhatWeb      │ Web technology fingerprinting     │
-│ NSLookup     │ DNS resolution                    │
-│ cURL         │ HTTP response analysis             │
-│ Wafw00f      │ WAF fingerprinting                │
-│ DNSRecon     │ DNS record enumeration            │
-│ Nmap         │ Network host discovery            │
-└──────────────┴────────────────────────────────────┘
-🔍 Track 01 — External Footprinting
-Target
-https://networkwalks.com
-
-The target domain was examined using multiple reconnaissance utilities to build a basic external attack-surface profile.
-
-01 · WHOIS Intelligence
+                         ┌─────────────────────────┐
+                         │       KALI LINUX        │
+                         │      MT Linux VM        │
+                         │       10.0.0.2/24       │
+                         └────────────┬────────────┘
+                                      │
+                  ┌───────────────────┴───────────────────┐
+                  │                                       │
+                  ▼                                       ▼
+        ┌─────────────────────┐                 ┌─────────────────────┐
+        │  NETWORK SCANNING   │                 │    FOOTPRINTING     │
+        │                     │                 │                     │
+        │  10.0.0.0/24        │                 │  networkwalks.com   │
+        │  Nmap               │                 │                     │
+        │  Host Discovery     │                 │ WHOIS               │
+        └──────────┬──────────┘                 │ WhatWeb             │
+                   │                            │ NSLookup            │
+                   ▼                            │ cURL                │
+        ┌─────────────────────┐                 │ Wafw00f             │
+        │   Active Hosts      │                 │ DNSRecon            │
+        │   & Host Details    │                 └──────────┬──────────┘
+        └─────────────────────┘                            │
+                                                           ▼
+                                               ┌─────────────────────┐
+                                               │  Reconnaissance     │
+                                               │      Results        │
+                                               └─────────────────────┘
+⚙️ Lab Configuration
+Category	Configuration
+Operating System	Kali Linux Rolling
+Virtualization	Oracle VM VirtualBox
+Network Interface	eth0
+VM IP Address	10.0.0.2/24
+Gateway	10.0.0.1
+External Target	networkwalks.com
+Internal Network	10.0.0.0/24
+Primary Scanner	Nmap
+🧰 Tools Used
+Tool	Purpose	Key Observation
+whois	Domain information	Registrar and nameserver details
+whatweb	Web technology detection	WordPress, Apache, Bootstrap
+nslookup	DNS resolution	192.232.216.135
+curl	HTTP header inspection	HTTP/2 200 OK
+wafw00f	WAF detection	ModSecurity (SpiderLabs)
+dnsrecon	DNS enumeration	SOA, MX, TXT/SPF, SRV
+nmap	Host discovery	10.0.0.0/24
+🔎 Module 1 — Target Footprinting
+1. WHOIS Enumeration
 whois networkwalks.com
 
-Collected information included:
+Used to collect publicly available domain registration and nameserver information.
 
-Domain registration information
-Registrar details
-Nameserver information
-Domain status information
-02 · Web Stack Fingerprinting
+2. Web Technology Detection
 whatweb networkwalks.com
-
-Observed technologies:
-
+Observed Technologies
 WordPress
 Apache
 Bootstrap
-03 · DNS Resolution
+3. DNS Resolution
 nslookup networkwalks.com
-
-Observed A Record:
-
+Resolved IP Address
 192.232.216.135
-04 · HTTP Header Analysis
+4. HTTP Header Inspection
 curl -I https://networkwalks.com
-
-Observed response:
-
+Observed Response
 HTTP/2 200 OK
 
-HTTP headers and cookie-related response information were also observed during the analysis.
+The response also provided HTTP header and cookie-related information.
 
-05 · WAF Fingerprinting
+5. WAF Detection
 wafw00f https://networkwalks.com
-
-Observed WAF:
-
+Detected WAF
 ModSecurity (SpiderLabs)
-06 · DNS Enumeration
+6. DNS Enumeration
 dnsrecon -d networkwalks.com
-
-Observed DNS record categories:
-
+Observed Records
 SOA
 MX
 TXT / SPF
 SRV
-🗺️ Track 02 — Local Network Discovery
-Authorized Laboratory Scope
-Network : 10.0.0.0/24
-Addresses : 256
-Method : ICMP / Host Discovery
-Tool : Nmap
-Host Discovery
+🌐 Module 2 — Subnet Host Discovery
+Authorized Network
+10.0.0.0/24
+Nmap Command
 sudo nmap -sn 10.0.0.0/24 -oN nmap_result.txt
 
-The scan output was saved locally for documentation and verification.
+The -sn option performs host discovery without performing a traditional port scan.
 
-Review Results
+The -oN option saves the output to:
+
+nmap_result.txt
+View Saved Results
 cat nmap_result.txt
 
-This provided a list of responsive hosts detected within the authorized laboratory network.
+The scan examined the complete /24 network containing 256 IP addresses and recorded responsive hosts.
 
-🧩 Reconnaissance Findings
-Investigation	Tool	Observation
-Domain Intelligence	WHOIS	Registration & nameserver data
-Web Fingerprinting	WhatWeb	WordPress / Apache / Bootstrap
-DNS Resolution	NSLookup	192.232.216.135
-HTTP Analysis	cURL	HTTP/2 200 OK
-WAF Detection	Wafw00f	ModSecurity (SpiderLabs)
-DNS Enumeration	DNSRecon	SOA / MX / TXT / SRV
-Host Discovery	Nmap	10.0.0.0/24 examined
-🛠️ Lab Troubleshooting
-🌐 DNS & Routing Failure
-Initial Symptoms
+🐞 Challenges Faced & Solutions
+Problem 1 — Network & DNS Resolution Failure
+Issue
+
+The following errors were encountered:
+
 Temporary failure in name resolution
 Network is unreachable
+Cause
 
-The Kali VM required network configuration restoration after the environment restart.
+After restarting the Kali Linux VM, the network interface, default route, and DNS resolver configuration required restoration.
 
-Network Recovery
+Solution
 sudo ip addr flush dev eth0
 sudo ip addr add 10.0.0.2/24 dev eth0
 sudo ip link set eth0 up
 sudo ip route add default via 10.0.0.1 dev eth0
 
-DNS resolver configuration:
+DNS configuration:
 
 echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf
 
-After restoring the interface, route, and resolver configuration, connectivity-dependent reconnaissance commands could be executed.
+After restoring the network configuration, the reconnaissance commands were executed successfully.
 
-🖥️ Zenmap → Nmap CLI
+Problem 2 — Zenmap GUI Issues
+Issue
 
-Zenmap produced GUI/deprecation warnings and the detailed scan workflow was slower than required for the host-discovery objective.
+Zenmap generated GUI/deprecation warnings and the detailed scan was slower than required for the host-discovery task.
 
-The laboratory therefore switched to the command-line workflow:
+Solution
+
+The command-line version of Nmap was used:
 
 sudo nmap -sn 10.0.0.0/24 -oN nmap_result.txt
-Why CLI?
-✓ Faster execution
-✓ Direct terminal output
-✓ Easy evidence collection
-✓ Reproducible commands
-✓ Simple result logging
-🧠 What This Lab Demonstrated
-🔎 Reconnaissance
 
-Understanding how publicly accessible information can reveal elements of a target's infrastructure.
+This provided direct terminal output and easy result logging.
 
-🌐 DNS Intelligence
+🧠 Technical Concepts Learned
+OSINT & Reconnaissance
 
-Learning how different DNS record types contribute to infrastructure mapping.
+Understanding how publicly available domain information can be collected during an authorized security assessment.
 
-🧬 Fingerprinting
+DNS Enumeration
 
-Identifying technologies exposed by a web application through passive and active inspection.
+Understanding how DNS records can provide information about domain infrastructure.
 
-🛡️ Defensive Visibility
+Web Fingerprinting
 
-Recognizing security controls such as Web Application Firewalls during authorized assessment.
+Identifying technologies and server components exposed by a web application.
 
-🗺️ Network Enumeration
+WAF Detection
 
-Using Nmap host discovery to identify responsive systems within a controlled subnet.
+Identifying the presence of a Web Application Firewall using Wafw00f.
 
-🛠️ Linux Networking
+Network Discovery
 
-Practicing manual configuration of:
+Using Nmap to identify active hosts within an authorized subnet.
 
-IP Address
-Network Interface
-Default Route
-DNS Resolver
-📸 Evidence & Screenshots
+Linux Network Troubleshooting
 
-All major laboratory activities were documented using terminal screenshots.
+Manually configuring IP addressing, routing, network interfaces, and DNS resolution.
+
+📸 Proof of Execution
+
+The following screenshots document the laboratory execution:
 
 screenshots/
 │
@@ -222,15 +216,24 @@ screenshots/
 ├── 03-wafw00f-dnsrecon.png
 ├── 04-nmap-scan-start.png
 └── 05-nmap-scan-complete.png
-Evidence Mapping
-Screenshot	Evidence
-01	Network recovery + WhatWeb
-02	DNS resolution + HTTP headers
-03	WAF + DNS enumeration
+Screenshot	Description
+01	Network configuration and WhatWeb output
+02	NSLookup and cURL output
+03	Wafw00f and DNSRecon output
 04	Nmap scan execution
-05	Nmap completion / results
+05	Nmap scan completion
+📊 Final Results
+Module	Activity	Result
+W2-PM1	WHOIS	Domain information collected
+W2-PM1	WhatWeb	WordPress, Apache and Bootstrap identified
+W2-PM1	NSLookup	192.232.216.135 resolved
+W2-PM1	cURL	HTTP/2 200 OK observed
+W2-PM1	Wafw00f	ModSecurity detected
+W2-PM1	DNSRecon	DNS records identified
+W2-PM5	Nmap	10.0.0.0/24 scanned
+W2-PM5	Result Logging	Output saved to nmap_result.txt
 📁 Repository Structure
-NETWORKWALKS-B083F-WK2-RECONNAISSANCE/
+NETWORKWALKS-B083F-WK2-FOOTPRINTING-NETWORK-SCANNING/
 │
 ├── README.md
 │
@@ -243,22 +246,24 @@ NETWORKWALKS-B083F-WK2-RECONNAISSANCE/
 │
 └── results/
     └── nmap_result.txt
-🔐 Authorization & Responsible Use
+🔐 Ethical Use
 
-This laboratory was conducted as part of an authorized cybersecurity internship exercise.
+All activities were performed within the authorized scope of the internship laboratory.
 
-Authorized Scope
+Authorized Targets
 External Target
 └── networkwalks.com
 
-Internal Laboratory Network
+Local Laboratory Network
 └── 10.0.0.0/24
 
-The techniques and commands documented here should only be used against systems and networks where explicit authorization has been provided.
+The documented commands should only be used against systems and networks for which appropriate authorization has been provided.
 
-👤 Lab Information
-Field	Details
-Author	M. Thangamani
+👤 Author
+
+M. Thangamani
+
+Detail	Information
 Program	Cybersecurity Internship
 Organization	Networkwalks
 Batch	B083F
@@ -267,17 +272,4 @@ Week	02
 Modules	W2-PM1 & W2-PM5
 Environment	Kali Linux / VirtualBox
 Status	Completed
-⚡ Recon Mindset
-        ENUMERATE
-             ↓
-         IDENTIFY
-             ↓
-          ANALYZE
-             ↓
-         DOCUMENT
-
-Good security starts with knowing what is exposed.
-
-🛡️ Cybersecurity Internship · Week 02
-
-Reconnaissance • OSINT • DNS • Fingerprinting • Network Discovery
+🔐 FOOTPRINT • SCAN • ANALYZE • DOCUMENT
