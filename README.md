@@ -1,25 +1,27 @@
+<div align="center">
+
 # 🔐 Cybersecurity Lab — Footprinting & Network Scanning
 
 ### Week 02 — Target Reconnaissance & Subnet Discovery
 
 **Networkwalks Cybersecurity Internship · Batch B083F**
 
-<p align="center">
+<br>
 
 ![Kali Linux](https://img.shields.io/badge/Kali%20Linux-Rolling-557C94?style=for-the-badge&logo=kalilinux&logoColor=white)
 ![VirtualBox](https://img.shields.io/badge/VirtualBox-7.x-183A61?style=for-the-badge&logo=virtualbox&logoColor=white)
 ![Nmap](https://img.shields.io/badge/Nmap-Network%20Scanning-1F6FEB?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Completed-2EA44F?style=for-the-badge)
 
-</p>
+</div>
 
 ---
 
 ## 📌 Project Overview
 
-This project documents the completion of **Week 02 laboratory exercises** for the Networkwalks Cybersecurity Internship.
+This project documents the completion of **Week 02 laboratory exercises** for the **Networkwalks Cybersecurity Internship — Batch B083F**.
 
-The laboratory covers two primary activities:
+The laboratory consists of two modules:
 
 - **W2-PM1 — Target Footprinting**
 - **W2-PM5 — Network Scanning**
@@ -30,10 +32,14 @@ The second module focuses on active host discovery across the authorized `10.0.0
 
 ---
 
+<div align="center">
+
 ## 🎯 Objectives
 
-- Perform domain footprinting and OSINT.
-- Collect WHOIS and DNS information.
+</div>
+
+- Perform passive and active reconnaissance against the authorized target.
+- Collect domain registration and DNS information.
 - Identify web application technologies.
 - Inspect HTTP response headers.
 - Detect the presence of a Web Application Firewall.
@@ -44,7 +50,11 @@ The second module focuses on active host discovery across the authorized `10.0.0
 
 ---
 
+<div align="center">
+
 ## 🏗️ Lab Architecture
+
+</div>
 
 ```text
                          ┌─────────────────────────┐
@@ -66,7 +76,7 @@ The second module focuses on active host discovery across the authorized `10.0.0
                    │                            │ NSLookup            │
                    ▼                            │ cURL                │
         ┌─────────────────────┐                 │ Wafw00f             │
-        │   Active Hosts      │                 │ DNSRecon            │
+        │    Active Hosts     │                 │ DNSRecon            │
         │   & Host Details    │                 └──────────┬──────────┘
         └─────────────────────┘                            │
                                                            ▼
@@ -74,7 +84,9 @@ The second module focuses on active host discovery across the authorized `10.0.0
                                                │  Reconnaissance     │
                                                │      Results        │
                                                └─────────────────────┘
+<div align="center">
 ⚙️ Lab Configuration
+</div>
 Category	Configuration
 Operating System	Kali Linux Rolling
 Virtualization	Oracle VM VirtualBox
@@ -84,7 +96,9 @@ Gateway	10.0.0.1
 External Target	networkwalks.com
 Internal Network	10.0.0.0/24
 Primary Scanner	Nmap
+<div align="center">
 🧰 Tools Used
+</div>
 Tool	Purpose	Key Observation
 whois	Domain information	Registrar and nameserver details
 whatweb	Web technology detection	WordPress, Apache, Bootstrap
@@ -93,44 +107,64 @@ curl	HTTP header inspection	HTTP/2 200 OK
 wafw00f	WAF detection	ModSecurity (SpiderLabs)
 dnsrecon	DNS enumeration	SOA, MX, TXT/SPF, SRV
 nmap	Host discovery	10.0.0.0/24
+<div align="center">
 🔎 Module 1 — Target Footprinting
+</div>
 1. WHOIS Enumeration
 whois networkwalks.com
 
 Used to collect publicly available domain registration and nameserver information.
 
+Information collected:
+
+Domain registration information
+Registrar details
+Nameserver information
+Domain status information
 2. Web Technology Detection
 whatweb networkwalks.com
-Observed Technologies
+
+Observed Technologies:
+
 WordPress
 Apache
 Bootstrap
 3. DNS Resolution
 nslookup networkwalks.com
-Resolved IP Address
+
+Resolved IP Address:
+
 192.232.216.135
 4. HTTP Header Inspection
 curl -I https://networkwalks.com
-Observed Response
+
+Observed Response:
+
 HTTP/2 200 OK
 
 The response also provided HTTP header and cookie-related information.
 
 5. WAF Detection
 wafw00f https://networkwalks.com
-Detected WAF
+
+Detected WAF:
+
 ModSecurity (SpiderLabs)
 6. DNS Enumeration
 dnsrecon -d networkwalks.com
-Observed Records
+
+Observed DNS Records:
+
 SOA
 MX
 TXT / SPF
 SRV
+<div align="center">
 🌐 Module 2 — Subnet Host Discovery
+</div>
 Authorized Network
 10.0.0.0/24
-Nmap Command
+Nmap Host Discovery
 sudo nmap -sn 10.0.0.0/24 -oN nmap_result.txt
 
 The -sn option performs host discovery without performing a traditional port scan.
@@ -143,7 +177,9 @@ cat nmap_result.txt
 
 The scan examined the complete /24 network containing 256 IP addresses and recorded responsive hosts.
 
+<div align="center">
 🐞 Challenges Faced & Solutions
+</div>
 Problem 1 — Network & DNS Resolution Failure
 Issue
 
@@ -174,38 +210,42 @@ Zenmap generated GUI/deprecation warnings and the detailed scan was slower than 
 
 Solution
 
-The command-line version of Nmap was used:
+The command-line version of Nmap was used instead:
 
 sudo nmap -sn 10.0.0.0/24 -oN nmap_result.txt
 
 This provided direct terminal output and easy result logging.
 
+<div align="center">
 🧠 Technical Concepts Learned
-OSINT & Reconnaissance
+</div>
+🔍 OSINT & Reconnaissance
 
 Understanding how publicly available domain information can be collected during an authorized security assessment.
 
-DNS Enumeration
+🌐 DNS Enumeration
 
 Understanding how DNS records can provide information about domain infrastructure.
 
-Web Fingerprinting
+🧬 Web Fingerprinting
 
 Identifying technologies and server components exposed by a web application.
 
-WAF Detection
+🛡️ WAF Detection
 
 Identifying the presence of a Web Application Firewall using Wafw00f.
 
-Network Discovery
+📡 Network Discovery
 
 Using Nmap to identify active hosts within an authorized subnet.
 
-Linux Network Troubleshooting
+🛠️ Linux Network Troubleshooting
 
-Manually configuring IP addressing, routing, network interfaces, and DNS resolution.
+Practicing manual configuration of IP addressing, routing, network interfaces, and DNS resolution.
 
+<div align="center">
 📸 Proof of Execution
+</div>
 
 The following screenshots document the laboratory execution:
 
@@ -222,7 +262,9 @@ Screenshot	Description
 03	Wafw00f and DNSRecon output
 04	Nmap scan execution
 05	Nmap scan completion
+<div align="center">
 📊 Final Results
+</div>
 Module	Activity	Result
 W2-PM1	WHOIS	Domain information collected
 W2-PM1	WhatWeb	WordPress, Apache and Bootstrap identified
@@ -232,7 +274,9 @@ W2-PM1	Wafw00f	ModSecurity detected
 W2-PM1	DNSRecon	DNS records identified
 W2-PM5	Nmap	10.0.0.0/24 scanned
 W2-PM5	Result Logging	Output saved to nmap_result.txt
+<div align="center">
 📁 Repository Structure
+</div>
 NETWORKWALKS-B083F-WK2-FOOTPRINTING-NETWORK-SCANNING/
 │
 ├── README.md
@@ -246,7 +290,9 @@ NETWORKWALKS-B083F-WK2-FOOTPRINTING-NETWORK-SCANNING/
 │
 └── results/
     └── nmap_result.txt
+<div align="center">
 🔐 Ethical Use
+</div>
 
 All activities were performed within the authorized scope of the internship laboratory.
 
@@ -259,17 +305,20 @@ Local Laboratory Network
 
 The documented commands should only be used against systems and networks for which appropriate authorization has been provided.
 
+<div align="center">
 👤 Author
 
 M. Thangamani
 
-Detail	Information
-Program	Cybersecurity Internship
-Organization	Networkwalks
-Batch	B083F
-Intern ID	NW-83-711
-Week	02
-Modules	W2-PM1 & W2-PM5
-Environment	Kali Linux / VirtualBox
-Status	Completed
-🔐 FOOTPRINT • SCAN • ANALYZE • DOCUMENT
+Cybersecurity Internship — Networkwalks
+
+Batch B083F · Intern ID: NW-83-711
+
+Week 02 · W2-PM1 & W2-PM5
+
+<br>
+
+</div>
+<div align="center">
+🔐 Footprinting · DNS Enumeration · Web Analysis · Network Scanning
+</div> ```
